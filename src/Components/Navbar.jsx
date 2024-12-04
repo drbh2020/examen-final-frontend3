@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h1>Odontologo</h1>
+      <h1>DH Odontologo</h1>
       <div>
         <Link to="/home">Home</Link>
         <Link to="/contact">Contact</Link>
