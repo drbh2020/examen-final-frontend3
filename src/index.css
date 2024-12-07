@@ -1,3 +1,10 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -19,21 +26,40 @@ code {
   cursor: pointer;
 }
 
+.App {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: minmax(200px, 1fr);
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 
+    "nav"
+    "main"
+    "footer"
+}
+
 h1{
   text-align: center;
 }
 
 nav{
   display: flex;
-  width: 80vw;
-  justify-content: flex-start;
-  padding: 1rem;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: #eee;
+
+  grid-area: nav;
 }
+
+main {
+  grid-area: main;
+}
+
 
 a{
   color: #000;
   text-decoration: none;
-  margin: 5px;
+  margin-right: 10px;
   cursor: pointer;
 }
 a:hover{
@@ -43,22 +69,28 @@ a:hover{
 footer {
   display: flex;
   justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 2rem;
-  position: relative;
-  bottom: 0;
-  width: 90%;
-  height: 40px;
+  padding: 1rem;
   margin-top: 2rem;
+  background-color: #eee;
+
+  grid-area: footer;
 }
 
-footer > img{
+footer img{
   width: 200px;
   margin: 0;
 }
-footer > p{
+footer p{
   margin: 0;
-  padding-top: 0.7rem;
+}
+
+footer .footer-wrapper {
+  background-color: #eee;
+  color: #000;
+  width: 50%;
+  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
 }
 
 form{
@@ -85,13 +117,13 @@ form{
 }
 
 .card-grid{
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-items: center;
   gap: 1rem;
-  width: 90vw;
-  height: auto;
-  flex-wrap: wrap;
-  margin: 0 auto;
+  padding-inline: 3rem;
+  margin-inline: auto;
+  max-width: 57.875rem;
 }
 
 table {
@@ -117,6 +149,13 @@ tr:nth-child(even) {
   background-color: #12121296;
   color: white;
 }
-.dark > a {
+.dark a {
   color: white;
+}
+nav.dark {
+  background-color: #333;
+}
+
+footer.dark {
+  background-color: #333;
 }
