@@ -1,12 +1,19 @@
-import React from 'react'
+//import React from 'react'
+
+import { useContext } from "react";
+import { ContextGlobal } from "./utils/global.context";
 
 const Footer = () => {
-  return (
-    <footer>
-        <p>Powered by</p>
-        <img src="./img/DH.png" alt='DH-logo' />
-    </footer>
-  )
-}
+  const { state } = useContext(ContextGlobal);
 
-export default Footer
+  return (
+    <footer className={`${state.theme}`}>
+      <div className="footer-wrapper">
+        <p>Powered by</p>
+        <img src="../../public/images/DH.png" alt="DH-logo" />
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
