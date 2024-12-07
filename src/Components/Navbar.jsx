@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
+    <nav className={`${state.theme}`}>
       <h1>DH Odontologo</h1>
       <div>
         <Link to="/home">Home</Link>

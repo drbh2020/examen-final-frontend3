@@ -4,17 +4,11 @@ import { ContextGlobal } from "./utils/global.context";
 import PropTypes from 'prop-types';
 
 const Card = ({ name, username, id }) => {
-  const { state } = useContext(ContextGlobal);
+  const { state, dispatch } = useContext(ContextGlobal);
 
+  const isDuplicate = state.favs.some(fav => fav.id === id);
   const addFav = () => {
-    const favs = JSON.parse(localStorage.getItem("favs")) || [];
-    const isDuplicate = favs.some(fav => fav.id === id);
-    
-    if (!isDuplicate) {
-      const newFavs = [...favs, { name, username, id }];
-      localStorage.setItem("favs", JSON.stringify(newFavs));
-      alert("Agregado a Favoritos");
-    }
+    dispatch({ type: isDuplicate ? "DELETE_FAV" : "ADD_FAV", payload: { name, username, id} });
   };
 
   return (
@@ -33,7 +27,7 @@ const Card = ({ name, username, id }) => {
         <h3>{name}</h3>
         <p>{username}</p>
       </Link>
-      <button onClick={addFav}>⭐ Add fav</button>
+      <button onClick={addFav}>⭐{isDuplicate ? "Remove fav" : "Add fav"}</button>
     </div>
   );
 };
