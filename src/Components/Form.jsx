@@ -20,6 +20,7 @@ const Form = () => {
       nombreCompleto: "",
       email: "",
     };
+    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (!formData.nombreCompleto) {
       errorNuevo.nombreCompleto = "Ingrese su nombre completo";
@@ -33,13 +34,13 @@ const Form = () => {
       errorNuevo.email = "Ingrese su correo electrónico";
       esValido = false;
     } else if (
-      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)
+      !regexEmail.test(formData.email)
     ) {
       errorNuevo.email = "Por favor introduce una dirección de correo válida.";
       esValido = false;
     }
 
-    setErrors(errorNuevo);
+    setErrors((prev) => ({ ...prev, ...errorNuevo }));
     return esValido;
   };
 
@@ -59,6 +60,12 @@ const Form = () => {
     return;
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -67,11 +74,8 @@ const Form = () => {
             type="text"
             placeholder="Nombre completo"
             value={formData.nombreCompleto}
-            onChange={(e) => {
-              setFormData({ ...formData, nombreCompleto: e.target.value });
-              if (errors.nombreCompleto)
-                setErrors({ ...errors, nombreCompleto: "" });
-            }}
+            onChange={handleChange}
+            name="nombreCompleto"
           />
           {errors.nombreCompleto && <p>{errors.nombreCompleto}</p>}
         </div>
@@ -81,10 +85,8 @@ const Form = () => {
             type="email"
             placeholder="Correo electrónico"
             value={formData.email}
-            onChange={(e) => {
-              setFormData({ ...formData, email: e.target.value });
-              if (errors.email) setErrors({ ...errors, email: "" });
-            }}
+            onChange={handleChange}
+            name="email"
           />
           {errors.email && <p>{errors.email}</p>}
         </div>
